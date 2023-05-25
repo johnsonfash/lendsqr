@@ -76,12 +76,10 @@ function User() {
                         displayType="text"
                         thousandSeparator=","
                         value={data?.accountBalance}
-                        prefix='₦'
+                        prefix="₦"
                       />
                     </h6>
-                    <small className="text-muted">
-                      8093892799 / Providous Bank
-                    </small>
+                    <small className="text-muted">- / -</small>
                   </div>
                 </div>
               </div>
@@ -106,7 +104,7 @@ function User() {
                 </span>
               </div>
             </div>
-            <GeneralDetails  data={data}/>
+            <GeneralDetails data={data} />
           </div>
         </div>
       )}
