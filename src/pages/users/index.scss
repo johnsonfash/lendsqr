@@ -1,0 +1,70 @@
+@import '../../styles/variables.scss';
+
+@mixin color($color, $background) {
+  color: $color;
+  background: $background;
+  display: inline-block;
+}
+
+.users-page {
+  .users {
+    @include color($userColor, $userBackground);
+  }
+
+  .active-users {
+    @include color($activeColor, $activeBackground);
+  }
+
+  .users-loan {
+    @include color($loanUserColor, $loanUserBackground);
+  }
+
+  .users-savings {
+    @include color($savingsUserColor, $savingsUserBackground);
+  }
+
+  .table-dropdown {
+    width: 250px;
+  }
+
+  .table {
+    min-height: 420px;
+  }
+
+  .dropdown-menu {
+    max-height: 380px;
+    overflow-y: auto;
+  }
+
+  table .active {
+    @include color($activeColor, $activeBackground);
+  }
+
+  .table .inactive {
+    @include color($inactiveColor, $inactiveBackground);
+  }
+
+  .table .pending {
+    @include color($pendingColor, $pendingBackground);
+  }
+
+  .table .blacklist {
+    @include color($blackListColor, $blackListBackground);
+  }
+}
+
+.user-page {
+  .link {
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+  }
+
+  .link.active {
+    border-bottom: 3px solid $mainColor;
+    color: $mainColor;
+  }
+
+  .star {
+    color: $userStarColor;
+  }
+}

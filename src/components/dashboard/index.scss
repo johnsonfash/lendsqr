@@ -1,0 +1,48 @@
+@import '../../styles/variables.scss';
+
+.side-nav {
+  top: 4.4rem;
+  width: 270px;
+  left: -273px;
+  transition: all 0.3s ease;
+
+  .link {
+    border-left: 3px solid transparent;
+    color: $leftLinkFadedColor !important;
+  }
+
+  .active {
+    border-left: 3px solid $mainColor;
+    background: $mainColorLight;
+    font-weight: 500;
+    color: $lendsqrDark !important;
+  }
+}
+
+.content {
+  top: 4.4rem;
+  background: $contentBackground;
+  min-height: 90vh;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+#left-nav-control:checked~.side-nav {
+  left: 0;
+}
+
+@media (min-width:768px) {
+  .top-nav {
+    .logo-area {
+      min-width: 270px;
+    }
+  }
+
+  .side-nav {
+    left: 0px !important;
+  }
+
+  .content {
+    width: calc(100% - 270px);
+  }
+}
