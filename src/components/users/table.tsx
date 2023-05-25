@@ -57,7 +57,13 @@ function UserTable() {
                 <td className="no-break">{item.phoneNumber}</td>
                 <td className="no-break">{item.createdAt}</td>
                 <td className="no-break">
-                  <div className="inactive px-3 rounded-4">Inactive</div>
+                  {(i + 1) % 3 === 0 ? (
+                    <div className="inactive px-3 rounded-4">Inactive</div>
+                  ) : (i + 1) % 2 === 0 ? (
+                    <div className="active px-3 rounded-4">Acive</div>
+                  ) : (
+                    <div className="pending px-3 rounded-4">Pending</div>
+                  )}
                 </td>
                 <td className="no-break">
                   <PopUp id={item.id} />
