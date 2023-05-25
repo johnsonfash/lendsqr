@@ -66,7 +66,9 @@ function UserTable() {
             ))
           ) : (
             <div className="text-center my-4 position-absolute w-100">
-              <Alert color="danger">No data available</Alert>
+              <Alert color="danger" className="d-inline-block py-1">
+                No data available!
+              </Alert>
             </div>
           )}
         </tbody>

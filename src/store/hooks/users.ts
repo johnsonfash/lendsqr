@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { UserData, UsersState, updateUsers as reduxUpdate } from "../../store/slices/users";
+import { UserData, updateUsers } from "../../store/slices/users";
 import reduxRequest from "../../services/request";
 import { useSearchParams } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const useUsers = (auto = true) => {
 
   useEffect(() => {
     if (loading === 'false' && data === null) {
-      if (auto) http(reduxRequest('get', '/users', {}, reduxUpdate))
+      if (auto) http(reduxRequest('get', '/users', {}, updateUsers))
     }
   }, [data, loading, http, auto]);
 
