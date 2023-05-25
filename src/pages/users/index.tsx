@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./index.scss";
-import { Table } from "reactstrap";
 import UserTable from "../../components/users/table";
 
 function UsersPage() {

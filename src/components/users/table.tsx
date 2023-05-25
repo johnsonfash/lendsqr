@@ -1,22 +1,17 @@
 import {
   faChevronLeft,
   faChevronRight,
-  faEllipsisVertical,
-  faEye,
-  faSort,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Table,
-  UncontrolledDropdown,
-} from "reactstrap";
+import { Alert, Spinner, Table } from "reactstrap";
 import Filter from "./filter";
 import PopUp from "./popup";
+import useUsers from "../../store/hooks/users";
+import { Link } from "react-router-dom";
 
 function UserTable() {
+  const { loading, users, pageNumbers, page, total } = useUsers();
+
   return (
     <div className="border-top rounded-3 overflow-hidden">
       <Table
@@ -49,88 +44,63 @@ function UserTable() {
           </tr>
         </thead>
         <tbody>
-          {Array(2)
-            .fill(0)
-            .map((_, i) => (
-              <>
-                <tr key={i}>
-                  <td className="no-break">Lendsqr</td>
-                  <td className="no-break">Adedeji</td>
-                  <td className="no-break">adedeji@lendsqr.com</td>
-                  <td className="no-break">09036723177</td>
-                  <td className="no-break">May 15, 2020 10:00 AM</td>
-                  <td className="no-break">
-                    <div className="inactive px-3 rounded-4">Inactive</div>
-                  </td>
-                  <td className="no-break">
-                    <PopUp id={i + 1} />
-                  </td>
-                </tr>
-                <tr key={i}>
-                  <td className="no-break">Airbnb</td>
-                  <td className="no-break">Debby Ogana</td>
-                  <td className="no-break">debby@airbnb.com</td>
-                  <td className="no-break">09065340451</td>
-                  <td className="no-break">Apr 15, 2020 10:00 AM</td>
-                  <td className="no-break">
-                    <div className="active px-3 rounded-4">Active</div>
-                  </td>
-                  <td className="no-break">
-                    <PopUp id={i + 1} />
-                  </td>
-                </tr>
-                <tr key={i}>
-                  <td className="no-break">Airbnb</td>
-                  <td className="no-break">Debby Ogana</td>
-                  <td className="no-break">debby@airbnb.com</td>
-                  <td className="no-break">09065340451</td>
-                  <td className="no-break">Jun 15, 2020 10:00 AM</td>
-                  <td className="no-break">
-                    <div className="pending px-3 rounded-4">Pending</div>
-                  </td>
-                  <td className="no-break">
-                    <PopUp id={i + 1} />
-                  </td>
-                </tr>
-                <tr key={i}>
-                  <td className="no-break">Airbnb</td>
-                  <td className="no-break">Debby Ogana</td>
-                  <td className="no-break">debby@airbnb.com</td>
-                  <td className="no-break">09065340451</td>
-                  <td className="no-break">May 15, 2020 10:00 AM</td>
-                  <td className="no-break">
-                    <div className="blacklist px-3 rounded-4">Blacklisted</div>
-                  </td>
-                  <td className="no-break">
-                    <PopUp id={i + 1} />
-                  </td>
-                </tr>
-              </>
-            ))}
+          {loading ? (
+            <div className="text-center my-4 position-absolute w-100">
+              <Spinner size="sm" />
+            </div>
+          ) : users ? (
+            users?.map((item, i) => (
+              <tr key={i}>
+                <td className="no-break text-capitalize">{item.orgName}</td>
+                <td className="no-break text-capitalize">{`${item.profile?.firstName} ${item.profile?.lastName}`}</td>
+                <td className="no-break text-lowercase">{item.email}</td>
+                <td className="no-break">{item.phoneNumber}</td>
+                <td className="no-break">{item.createdAt}</td>
+                <td className="no-break">
+                  <div className="inactive px-3 rounded-4">Inactive</div>
+                </td>
+                <td className="no-break">
+                  <PopUp id={item.id} />
+                </td>
+              </tr>
+            ))
+          ) : (
+            <div className="text-center my-4 position-absolute w-100">
+              <Alert color="danger">No data available</Alert>
+            </div>
+          )}
         </tbody>
       </Table>
       <div className="d-flex flex-wrap py-2 align-items-center">
         <div className="d-flex align-items-center col-12 col-sm-6 pe-3">
           <span className="d-inline-block">Showing</span>
           <select className="form-select mx-2 py-0 max-w-5">
-            <option value="">100</option>
-            <option value="">500</option>
+            <option value="">10</option>
           </select>
-          <span className="d-inline-block no-break">out of 100</span>
+          <span className="d-inline-block no-break">out of {total}</span>
         </div>
         <div className="col-12 col-sm-6 mt-2 mt-sm-0 d-flex justify-content-md-end">
-          <button className="btn btn-light">
+          <Link
+            to={`/users?p=${page > 1 ? page - 1 : page}`}
+            className="btn btn-light"
+          >
             <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
-          <button className="btn">1</button>
-          <button className="btn">2</button>
-          <button className="btn">3</button>
-          <span className="d-inline-block">...</span>
-          <button className="btn">15</button>
-          <button className="btn">16</button>
-          <button className="btn btn-light">
+          </Link>
+          {pageNumbers?.map((num, i) =>
+            num ? (
+              <Link to={`/users?p=${num}`} key={i} className="btn">
+                {num}
+              </Link>
+            ) : (
+              <button className="btn">...</button>
+            )
+          )}
+          <Link
+            to={`/users?p=${page * 10 < total ? page + 1 : page}`}
+            className="btn btn-light"
+          >
             <FontAwesomeIcon icon={faChevronRight} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

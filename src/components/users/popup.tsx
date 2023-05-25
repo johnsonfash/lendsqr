@@ -13,7 +13,7 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 
-function PopUp({ id }: { id: number }) {
+function PopUp({ id }: { id: string | undefined }) {
   return (
     <UncontrolledDropdown>
       <DropdownToggle tag="div" className="pointer">
