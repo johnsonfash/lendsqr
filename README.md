@@ -1,6 +1,6 @@
-# task-manager
-`https://task-manager-lake.vercel.app`
-# lendsqr
+# Lendsqr
+`https://fashanu-tosin-johnson-lendsqr-fe-test.vercel.app/`
+
 
 ## Local Setup
 
